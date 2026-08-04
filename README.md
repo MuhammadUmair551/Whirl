@@ -1,16 +1,17 @@
 # Whirl
 
-Whirl is a playful snack brand website built with React and Vite. The project focuses on bold visual branding, smooth motion, responsive layouts, and a simple interactive shopping-bag experience.
+Whirl is a playful snack brand website built with React, Vite, and TypeScript. The project focuses on bold visual branding, smooth motion, responsive layouts, and a simple interactive shopping-bag experience.
 
 It presents a fictional snack brand with animated flavor cards, flavor detail drawers, a cart-style bag popover, a brand story page, and custom Whirl-themed visuals.
 
 ## Features
 
+- Built with TypeScript using clear, beginner-friendly types for product data, cart state, component props, React state, refs, and events
 - Responsive landing page for a modern snack brand
 - Animated hero section and flavor cards using GSAP
 - Interactive flavor detail drawer with add-to-bag feedback
 - Shopping bag popover with item quantities and clear-bag action
-- Dedicated brand story page
+- Multi-page routing with React Router and a dedicated brand story page
 - Custom Whirl favicon and brand mark in the navbar/footer
 - Route scroll reset for clean page navigation
 - Smooth UI details using Framer Motion and Lucide icons
@@ -18,6 +19,7 @@ It presents a fictional snack brand with animated flavor cards, flavor detail dr
 ## Tech Stack
 
 - React
+- TypeScript
 - Vite
 - React Router
 - GSAP
