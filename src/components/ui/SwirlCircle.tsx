@@ -1,4 +1,9 @@
-export function SwirlCircle({ size = 200, className = '' }) {
+type SwirlCircleProps = {
+  size?: number;
+  className?: string;
+};
+
+export function SwirlCircle({ size = 200, className = '' }: SwirlCircleProps) {
   return (
     <div
       className={`rounded-full ${className}`}

@@ -8,6 +8,7 @@ import { ProofNumbers }            from '../components/ui/ProofNumbers';
 import { FlavorCard }              from '../components/ui/FlavorCard';
 import { FlavorDrawer }            from '../components/ui/FlavorDrawer';
 import { FLAVORS }                 from '../data/flavors';
+import type { Flavor }             from '../data/flavors';
 
 const STATEMENTS = [
   { num: '01', text: 'Real ingredients.',        color: '#FF6F91' },
@@ -23,15 +24,15 @@ const PERKS = [
 ];
 
 export default function Landing() {
-  const pageRef     = useRef(null);
-  const backdropRef = useRef(null);
-  const badgeRef    = useRef(null);
-  const taglineRef  = useRef(null);
-  const ctaRef      = useRef(null);
-  const barsRef     = useRef(null);
-  const stmtRefs    = useRef([]);
+  const pageRef     = useRef<HTMLDivElement | null>(null);
+  const backdropRef = useRef<HTMLDivElement | null>(null);
+  const badgeRef    = useRef<HTMLDivElement | null>(null);
+  const taglineRef  = useRef<HTMLHeadingElement | null>(null);
+  const ctaRef      = useRef<HTMLDivElement | null>(null);
+  const barsRef     = useRef<HTMLDivElement | null>(null);
+  const stmtRefs    = useRef<(HTMLDivElement | null)[]>([]);
 
-  const [activeFlavor, setActiveFlavor] = useState(null);
+  const [activeFlavor, setActiveFlavor] = useState<Flavor | null>(null);
 
   useGSAP(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -139,7 +140,7 @@ export default function Landing() {
           The Whirl Promise
         </p>
         {STATEMENTS.map((s, i) => (
-          <div key={s.num} ref={el => (stmtRefs.current[i] = el)} style={{ display:'flex', alignItems:'center', gap:'clamp(24px,5vw,48px)', padding:'32px 0', borderBottom:'1px solid #EFE1C7' }}>
+          <div key={s.num} ref={(element) => { stmtRefs.current[i] = element; }} style={{ display:'flex', alignItems:'center', gap:'clamp(24px,5vw,48px)', padding:'32px 0', borderBottom:'1px solid #EFE1C7' }}>
             <span style={{ fontFamily:'Chewy, cursive', fontSize:'clamp(2.5rem,6vw,4.5rem)', lineHeight:1, color:s.color, WebkitTextStroke:'2px #2B1B12', paintOrder:'stroke fill', flexShrink:0 }}>
               {s.num}
             </span>

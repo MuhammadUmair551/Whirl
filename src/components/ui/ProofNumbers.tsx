@@ -10,8 +10,8 @@ const PROOF = [
 ];
 
 export function ProofNumbers() {
-  const sectionRef = useRef(null);
-  const itemRefs   = useRef([]);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const itemRefs   = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(() => {
     itemRefs.current.forEach((el, i) => {
@@ -40,7 +40,7 @@ export function ProofNumbers() {
           {PROOF.map((item, i) => (
             <div
               key={item.label}
-              ref={el => (itemRefs.current[i] = el)}
+              ref={(element) => { itemRefs.current[i] = element; }}
               style={{
                 textAlign:   'center',
                 padding:     '56px 24px',

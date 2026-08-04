@@ -1,13 +1,20 @@
 import { useRef }              from 'react';
 import { useGSAP }             from '@gsap/react';
 import { gsap }                from '../../lib/gsap';
+import type { Flavor }         from '../../data/flavors';
 
-export function FlavorCard({ flavor, index, onTryFlavor }) {
-  const cardRef  = useRef(null);
-  const fillRef  = useRef(null);
-  const titleRef = useRef(null);
-  const descRef  = useRef(null);
-  const btnRef   = useRef(null);
+type FlavorCardProps = {
+  flavor: Flavor;
+  index: number;
+  onTryFlavor: (flavor: Flavor) => void;
+};
+
+export function FlavorCard({ flavor, index, onTryFlavor }: FlavorCardProps) {
+  const cardRef  = useRef<HTMLDivElement | null>(null);
+  const fillRef  = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const descRef  = useRef<HTMLParagraphElement | null>(null);
+  const btnRef   = useRef<HTMLButtonElement | null>(null);
 
   useGSAP(() => {
     gsap.fromTo(cardRef.current,
@@ -96,7 +103,7 @@ export function FlavorCard({ flavor, index, onTryFlavor }) {
         </p>
         <button
           ref={btnRef}
-          onClick={() => onTryFlavor?.(flavor)}
+          onClick={() => onTryFlavor(flavor)}
           style={{ width:'100%', padding:'10px 0', borderRadius:99, border:'2px solid #2B1B12', background:'transparent', color:'#2B1B12', fontFamily:'Nunito, sans-serif', fontWeight:800, fontSize:12, cursor:'pointer', boxShadow:'0 3px 0 rgba(43,27,18,0.12)' }}
         >
           Try This Flavor

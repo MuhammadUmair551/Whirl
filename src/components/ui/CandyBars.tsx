@@ -10,7 +10,7 @@ const BARS = [
 ];
 
 export function CandyBars() {
-  const barsRef = useRef([]);
+  const barsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(() => {
     barsRef.current.forEach((bar, i) => {
@@ -39,7 +39,7 @@ export function CandyBars() {
       {BARS.map((bar, i) => (
         <div
           key={bar.name}
-          ref={el => (barsRef.current[i] = el)}
+          ref={(element) => { barsRef.current[i] = element; }}
           style={{
             position:     'absolute',
             width:        210,

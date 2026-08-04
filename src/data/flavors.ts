@@ -1,4 +1,17 @@
-export const FLAVORS = [
+export type Flavor = {
+  id: string;
+  name: string;
+  short: string;
+  color: string;
+  tagline: string;
+  description: string;
+  ingredients: string[];
+  cal: number;
+  protein: string;
+  badge: string;
+};
+
+export const FLAVORS: Flavor[] = [
   {
     id:          'pb',
     name:        'Peanut Butter Whirl',

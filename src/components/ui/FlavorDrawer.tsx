@@ -2,14 +2,20 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ShoppingBag, Check }   from 'lucide-react';
 import { useCartStore }            from '../../store/useCartStore';
+import type { Flavor }             from '../../data/flavors';
 
-export function FlavorDrawer({ flavor, onClose }) {
-  const [addedId,  setAddedId]  = useState(null);
+type FlavorDrawerProps = {
+  flavor: Flavor | null;
+  onClose: () => void;
+};
+
+export function FlavorDrawer({ flavor, onClose }: FlavorDrawerProps) {
+  const [addedId, setAddedId] = useState<string | null>(null);
   const addToCart               = useCartStore(s => s.add);
   const added                   = addedId === flavor?.id;
 
   useEffect(() => {
-    function onKey(e) { if (e.key === 'Escape') onClose(); }
+    function onKey(event: KeyboardEvent): void { if (event.key === 'Escape') onClose(); }
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
   }, [onClose]);
@@ -21,7 +27,8 @@ export function FlavorDrawer({ flavor, onClose }) {
     return () => { document.body.style.overflow = prev; };
   }, [flavor]);
 
-  function handleAdd() {
+  function handleAdd(): void {
+    if (!flavor) return;
     addToCart(flavor.id);
     setAddedId(flavor.id);
     setTimeout(() => {
@@ -49,7 +56,7 @@ export function FlavorDrawer({ flavor, onClose }) {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type:'spring', damping:28, stiffness:280 }}
-            onClick={e => e.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
             style={{ position:'fixed', bottom:0, left:0, right:0, zIndex:51, background:'#FFFFFF', borderRadius:'24px 24px 0 0', overflow:'hidden', display:'flex', flexDirection:'column', maxHeight:'88vh' }}
           >
             <div style={{ display:'flex', justifyContent:'center', padding:'12px 0 6px' }}>

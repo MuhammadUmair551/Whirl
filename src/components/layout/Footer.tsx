@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { Link }     from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
@@ -6,8 +7,8 @@ export default function Footer() {
   const [email, setEmail] = useState('');
   const [done,  setDone]  = useState(false);
 
-  function onSubmit(e) {
-    e.preventDefault();
+  function onSubmit(event: FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
     if (!email.trim()) return;
     setDone(true);
     setEmail('');

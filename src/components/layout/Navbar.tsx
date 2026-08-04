@@ -12,7 +12,7 @@ export default function Navbar() {
   const total = useCartStore(s => s.total);
   const clear = useCartStore(s => s.clear);
   const prevTotalRef = useRef(0);
-  const bagRef = useRef(null);
+  const bagRef = useRef<HTMLDivElement | null>(null);
   const bagItems = FLAVORS
     .map(flavor => ({ ...flavor, qty: items[flavor.id] || 0 }))
     .filter(item => item.qty > 0);
@@ -27,12 +27,12 @@ export default function Navbar() {
   }, [total]);
 
   useEffect(() => {
-    function onPointerDown(e) {
-      if (bagRef.current && !bagRef.current.contains(e.target)) setBagOpen(false);
+    function onPointerDown(event: PointerEvent): void {
+      if (bagRef.current && event.target instanceof Node && !bagRef.current.contains(event.target)) setBagOpen(false);
     }
 
-    function onKey(e) {
-      if (e.key === 'Escape') setBagOpen(false);
+    function onKey(event: KeyboardEvent): void {
+      if (event.key === 'Escape') setBagOpen(false);
     }
 
     document.addEventListener('pointerdown', onPointerDown);

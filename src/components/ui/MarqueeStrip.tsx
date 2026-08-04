@@ -2,8 +2,14 @@ import { useRef }   from 'react';
 import { useGSAP }  from '@gsap/react';
 import gsap         from 'gsap';
 
-export function MarqueeStrip({ items = [], speed = 22, dark = true }) {
-  const trackRef = useRef(null);
+type MarqueeStripProps = {
+  items?: string[];
+  speed?: number;
+  dark?: boolean;
+};
+
+export function MarqueeStrip({ items = [], speed = 22, dark = true }: MarqueeStripProps) {
+  const trackRef = useRef<HTMLDivElement | null>(null);
 
   useGSAP(() => {
     const track  = trackRef.current;

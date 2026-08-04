@@ -4,7 +4,13 @@ import { useGSAP }             from '@gsap/react';
 import { gsap }                from '../lib/gsap';
 import { FLAVORS }             from '../data/flavors';
 
-const MANIFESTO = [
+type ManifestoItem = {
+  line: string;
+  sub: string;
+  align: 'left' | 'right';
+};
+
+const MANIFESTO: ManifestoItem[] = [
   { line: 'Snacks should taste like snacks.',     sub: 'Not like a supplement dressed in a wrapper.',                                  align: 'left'  },
   { line: "Real food doesn't need a disclaimer.", sub: "If you need a chemistry degree to read the ingredients, that's a red flag.",   align: 'right' },
   { line: 'Boring is the worst flavor we know.',  sub: "We checked. It's worse than plain rice cake.",                                 align: 'left'  },
@@ -20,10 +26,10 @@ const TIMELINE = [
 ];
 
 export default function About() {
-  const pageRef       = useRef(null);
-  const headRef       = useRef(null);
-  const manifestoRefs = useRef([]);
-  const timelineRefs  = useRef([]);
+  const pageRef       = useRef<HTMLDivElement | null>(null);
+  const headRef       = useRef<HTMLDivElement | null>(null);
+  const manifestoRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const timelineRefs  = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(() => {
     gsap.fromTo(headRef.current,
@@ -33,7 +39,8 @@ export default function About() {
 
     manifestoRefs.current.forEach((el, i) => {
       if (!el) return;
-      const x = MANIFESTO[i].align === 'right' ? 60 : -60;
+      const manifestoItem = MANIFESTO[i];
+      const x = manifestoItem?.align === 'right' ? 60 : -60;
       gsap.fromTo(el,
         { opacity: 0, x },
         { opacity: 1, x: 0, duration: 0.75, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 82%' } }
@@ -78,7 +85,7 @@ export default function About() {
             What we actually believe
           </p>
           {MANIFESTO.map((item, i) => (
-            <div key={i} ref={el => (manifestoRefs.current[i] = el)} style={{ marginBottom:48, textAlign:item.align }}>
+            <div key={i} ref={(element) => { manifestoRefs.current[i] = element; }} style={{ marginBottom:48, textAlign:item.align }}>
               <h2 style={{ fontFamily:'Chewy, cursive', color:'#2B1B12', fontSize:'clamp(1.8rem,4.5vw,3.5rem)', lineHeight:1.1, marginBottom:10 }}>
                 {item.line}
               </h2>
@@ -96,7 +103,7 @@ export default function About() {
             How it happened
           </p>
           {TIMELINE.map((item, i) => (
-            <div key={i} ref={el => (timelineRefs.current[i] = el)} style={{ display:'flex', gap:24, paddingBottom:36 }}>
+            <div key={i} ref={(element) => { timelineRefs.current[i] = element; }} style={{ display:'flex', gap:24, paddingBottom:36 }}>
               <div style={{ display:'flex', flexDirection:'column', alignItems:'center', flexShrink:0 }}>
                 <div style={{ width:12, height:12, borderRadius:'50%', flexShrink:0, marginTop:4, background: i === TIMELINE.length-1 ? '#FF6F91' : 'white', border:`2px solid ${i === TIMELINE.length-1 ? '#FF6F91' : '#2B1B12'}` }} />
                 {i < TIMELINE.length - 1 && <div style={{ width:1, flex:1, background:'#EFE1C7', marginTop:6 }} />}
